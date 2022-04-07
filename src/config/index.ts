@@ -1,0 +1,5 @@
+export * from './baseResModel'
+export { LocalStorageTypes } from './constans'
+export { default as api } from './api.json'
+export { default as colors } from './colors.json'
+export { default as navigation } from './navigation.json'

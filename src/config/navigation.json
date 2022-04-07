@@ -1,0 +1,24 @@
+{
+  "authenticate": {
+    "login": "/authenticate/login",
+    "signUp": "/authenticate/register",
+    "forgetPassword": "/authenticate/forgetPassword"
+  },
+  "home": "/daroox",
+  "index": {
+    "home": "/daroox/home",
+    "search": "/daroox/search",
+    "fraction_booklet": "/daroox/",
+    "card_board": "/daroox/card_board",
+    "admin": "/daroox/admin_page",
+    "about": "/daroox/",
+    "support": "/daroox/",
+    "profile": "/daroox/profile",
+    "sign_out": "/daroox/"
+  },
+  "prescipt": {
+    "home": "/prescripe"
+  },
+  "notFound": "/404"
+  
+}

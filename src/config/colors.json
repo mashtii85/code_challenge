@@ -1,0 +1,25 @@
+{
+  "text": "#838282",
+  "primary": "#149346",
+  "secondary": "#d20e42",
+  "warning": "orange",
+  "grey": "#e1e1e1",
+  "lightGrey": "#e0e0e0",
+  "green": "#27ae60",
+  "darkGrey": "#828282",
+  "exLightGrey": "#eee",
+  "blue": "blue",
+  "turnoverStatus": {
+    "yellow": "#bbd7f6",
+    "green": "#a9edc4",
+    "red": "#ff3a3a",
+    "blue": "#ffad4d",
+    "pink": "#ff7a6d"
+  },
+  "leftSidebar": {
+    "gray": "#9c9c9c"
+  },
+  "sale": {
+    "grey": "#f6f6f6"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "base_api": "http://192.168.1.15:8585/api/",
+  "base_api1": "http://192.168.1.11:81/api/",
+  "authenticate": {
+    "login": "token",
+    "signUp": {
+      "register": "security/users/signup?verificationCode=",
+      "phoneVerification": "security/users/signupVerification?mobile=@mobileNumber"
+    },
+    "forgetPassword": "security/users/retrieveForgottenPassword?hixCode="
+  },
+  "companies": "shopSply/companies",
+  "campaigns": "shopSply/campaigns",
+  "getCopmanyDetails": "shopSply/documents/current?shopSplyCompanyID=",
+  "shopCart": {
+    "createUpdate": "shopSply/documents/$ShopSplyCompanyID/documentDetails",
+    "update": "shopSply/documents/updateDocumentDetail",
+    "delete": "shopSply/documents/$shopSplyDocumentID/documentDetails/$shopSplyDocumentDetailID",
+    "register": "shopSply/documents/$shopSplyDocumentID/send"
+  },
+  "products": "shopSply/products",
+  "turnovers": "shopSply/mergedPersons/splyTurnOver",
+  "document_history": "shopSply/documents/sync-get",
+  "product_news": "shopSply/productNews",
+  "about": "shopSply/mergedPersons/Info",
+  "security": "security/users/",
+  "invoiceDetails": "shopSply/documents/invoice",
+  "document": {
+    "details": "shopSply/documents/102438/documentDetails"
+  },
+  "cardBoard": "msg/messages/cartable",
+  "invoice": {
+    "details": "shopSply/documents/invoice/$saleDocumentID/details"
+  },
+  "follow_order": "shopSply/order-follow",
+  "saleCustomerTypes": "sale/customerTypes",
+  "saleCustomerActivity": "sale/customerActivities",
+  "companyCustomers": "shopSply/companyCustomers",
+  "followOrder_documentDetail": "shopSply/order-follow/invoice/details",
+  "searchHixCode": "shopSply/mergedPersons/splySearchAllHixCode",
+  "saleCustomer": "sale/customers",
+  "sale": {
+    "frequentProducts": "sale/FrequentProducts",
+    "search": "inventory/products/search-with-priceInfo",
+    "saleDocument": "sale/documents/pos",
+    "getByCodeTotDoctors": "total/doctors/get-by-code",
+    "saleCustomerSearch": "sale/customers/search"
+  },
+  "total": {
+    "totDoctorsByCode": "total/doctors/get-by-code"
+  },
+  "totDoctors": "total/doctors",
+  "totInsuranceCompaniesProficiency": "total/InsuranceCompaniesProficiency"
+}
