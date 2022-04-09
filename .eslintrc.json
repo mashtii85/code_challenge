@@ -1,3 +1,76 @@
 {
-  "extends": "next/core-web-vitals"
+  "parser": "@typescript-eslint/parser",
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true,
+    "jest": true
+  },
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "rules": {
+    "prettier/prettier": [
+      1,
+      {
+        "printWidth": 120,
+        "semi": false,
+        "singleQuote": true,
+        "trailingComma": "none"
+      }
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "error"
+    ],
+    "no-unused-vars": [
+      "error",
+      {
+        "vars": "all",
+        "args": "after-used",
+        "ignoreRestSiblings": false
+      }
+    ],
+    "no-unused-expressions": [
+      "error",
+      {
+        "allowShortCircuit": true
+      }
+    ],
+    "camelCase": "off",
+    "consistent-return": "error",
+    "default-case": "warn",
+    "no-debugger": "error",
+    "no-empty": "off",
+    "no-empty-function": "off",
+    "import/no-anonymous-default-export": "off",
+    "space-before-function-paren": 0,
+    "spaced-comment": "error",
+    "overrides": [
+      {
+        "files": [
+          "*.ts",
+          "*.tsx",
+          "*.js",
+          "*.jsx"
+        ],
+        "rules": {
+          "@typescript-eslint/ban-ts-comment": "off",
+          "@typescript-eslint/no-explicit-any": "off",
+          "@typescript-eslint/no-unused-vars": "error",
+          "@typescript-eslint/explicit-function-return-type": "error"
+        }
+      },
+      {
+        "files": [
+          "*.ts"
+        ],
+        "rules": {
+          "@typescript-eslint/explicit-function-return-type": [
+            "error"
+          ],
+          "@typescript-eslint/no-var-requires": 0
+        }
+      }
+    ]
+  }
 }

@@ -1,51 +1,36 @@
-import React from 'react'
-// import { Button } from '@mui/material'
-// import { useRouter } from 'next/router'
-import { withTranslation } from '../i18n'
-import PropTypes from 'prop-types'
-import { Link } from '../i18n'
-import { navigation } from '@config'
-import { useRouter } from 'next/router'
-// import { withTranslation } from '../i18n'
+// Next
+import type { NextPage } from 'next'
+//Styles
+import Styled from 'styled-components'
+//UI
+import { Home } from '../components/home'
+import { Container } from '@mui/material'
 
-const Home = ({ t }): JSX.Element =>
-  //{ t }: any
-  {
-    const router = useRouter()
-    if (typeof window !== 'undefined') router.push('/daroox')
-    // const router = useRouter()
-    return (
-      <div>
-        <h1>{t('hello')}</h1>
-        {/* <Button onClick={() => router.push(navigation.index.home)}>
-          داروکس
-        </Button>
-        <button
-          type="button"
-          onClick={() =>
-            i18n.changeLanguage(i18n.language === 'en' ? 'fa' : 'en')
-          }
-        >
-           {t('language')}
-        </button> */}
-        <Link href={navigation.index.home}>
-          <a>Daroox</a>
-        </Link>
-        <p>
-          <Link href={navigation.prescipt.home}>
-            <a>Presciption</a>
-          </Link>
-        </p>
-        <div>{t('hello')}</div>
-      </div>
-    )
-  }
+// db
+import {db, Playlist} from '../db'
 
-// Home.getInitialProps = async () => ({
-//   namespacesRequired: ['common'],
-// })
-Home.propTypes = {
-  t: PropTypes.func.isRequired,
+export const StyledContainer = Styled(Container)`
+  border:1px dashed red;
+  background-color:red;
+`
+export interface IHomeProps{
+  playlist:Playlist[]
+  genres:string[]
 }
-export default withTranslation('common')(Home)
-// export default Home
+
+const HomePage: NextPage<IHomeProps> = (props:IHomeProps) => {
+  return (
+    <Home {...props} />
+  )
+}
+
+HomePage.getInitialProps=(_):IHomeProps=>{
+  const {playlist,allGenre} = db
+
+  return {
+    genres:allGenre,
+    playlist
+  }
+}
+
+export default HomePage

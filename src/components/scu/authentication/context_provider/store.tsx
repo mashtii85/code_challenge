@@ -40,10 +40,9 @@ function AuthenticateProvider({
     dispatch({ type: ActionType.UNINITIALIZED })
   }, [])
   
-  const switchRenderer = (currentState) => {
+  const switchRenderer = (currentState:ActionType) => {
 
     switch (currentState) {
-      
       case ActionType.LOADING:
         return <Loading />
       case ActionType.AUTHORIZED:

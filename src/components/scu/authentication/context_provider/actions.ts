@@ -16,12 +16,12 @@ export const getToken = (
 ): IAuthorizeState =>
   UpdateWithSideEffect(
     { ...state, loading: true },
-    async (state: IAuthorizeState, dispatch) => {
-      const response = await service.login(action.payload)
+    async (state: IAuthorizeState, dispatch:any) => {
+      const response = await service.login(action.payload!)
       if (response.access_token) {
         decodeToken(response.access_token)
 
-        action.payload.remember
+        action.payload?.remember
           ? localStorage.setItem(
               LocalStorageTypes.REMEMBER_ME,
               JSON.stringify(action.payload),
@@ -32,10 +32,7 @@ export const getToken = (
           payload: response,
         })
       } else {
-        const message: IMessage = {
-          text: 'نام کاربری یا کلمه عبور اشتباه است.  ',
-          type: MessageType.FAILURE,
-        }
+        
         // Update({
         //   ...state,
         //   currentState: action.type,
@@ -45,12 +42,13 @@ export const getToken = (
         dispatch({
           type: ActionType.UNAUTHORIZED,
           payload:
-            'نام کاربری یا کلمه عبور اشتباه است.  ' +
+            'user name or password is incorrect' +
             new Date().toLocaleTimeString(),
         })
       }
     },
   )
+
 export const clearMessage = (
   state: IAuthorizeState,
   action: IAuthorizeAction<ICredentialReqModel>,
@@ -81,12 +79,10 @@ export const forgetPasswordAction = (
       const response = await service.forgetPassword(action.payload)
       if (response.success) {
         const message: IMessage = {
-          text: 'کلمه عبور به ایمیل شما ارسال شد',
+          text: 'password has sent to your email',
           type: MessageType.SUCCESS,
         }
-        showMessages([message])
       } else {
-        showMessages(response.message)
       }
 
       Update({
@@ -112,12 +108,11 @@ export const authorized = (
     token: action.payload,
     currentState: action.type,
     curentUserId: localStorage.getItem(LocalStorageTypes.USERID),
-    isAdmin: CheckAccessPost(Posts.Daroox_Admin),
   })
 }
+
 export const unauthorized = (
   state: IAuthorizeState,
-
   action: IAuthorizeAction<string>,
 ): IAuthorizeState => {
   const jsonCredentials = localStorage.getItem(LocalStorageTypes.REMEMBER_ME)
@@ -125,9 +120,9 @@ export const unauthorized = (
     username: '',
     password: '',
     remember: false,
-    grant_type: 'password',
+    grant_type: 'PASSWORD',
   }
-  if (jsonCredentials != 'undefined') {
+  if (jsonCredentials&&jsonCredentials != 'undefined' ) {
     credentials = JSON.parse(jsonCredentials)
   }
   return Update({
@@ -138,6 +133,7 @@ export const unauthorized = (
     userCredentials: credentials,
   })
 }
+
 const getTokenFromLocalStorage = (): ICredentialResModel | undefined => {
   const jsonResponse = localStorage.getItem(LocalStorageTypes.JWT)
   if (
@@ -151,6 +147,7 @@ const getTokenFromLocalStorage = (): ICredentialResModel | undefined => {
     return undefined
   }
 }
+
 export const uninitialized = (state: IAuthorizeState): IAuthorizeState =>
   UpdateWithSideEffect({ ...state, loading: true }, async (state, dispatch) => {
     const response = getTokenFromLocalStorage()

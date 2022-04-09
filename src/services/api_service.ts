@@ -3,7 +3,7 @@ import { ICredentialResModel } from '../components/scu/authentication/models/res
 import { IBaseResModel, IMessage, api, MessageType } from '../config'
 import CommonService from './common_service'
 import { ICredentialReqModel } from '../components/scu/authentication/models'
-import {db} from '../db'
+import { db } from '../db'
 
 interface IHttpAction {
   method: string
@@ -54,18 +54,21 @@ class APIService {
   }
 
   public async getCredential(body: ICredentialReqModel): Promise<Partial<ICredentialResModel>> {
-    
+
     try {
-    const {credential} = db
-    if(body.username==credential.userName&&credential.password==credential.password){
-      return{
-        message:"success"
+      const { credential } = db
+      if (body.username == credential.userName && credential.password == credential.password) {
+        return {
+          message: "success",
+          access_token:'token',
+          succeeded:true,
+          token_type:""
+        }
       }
-    }
-        return {message:"user name or password is wrong",access_token:"logged_in"}
-      
+      return { message: "user name or password is wrong", access_token: "logged_in" }
+
     } catch (e) {
-      return {message:JSON.stringify(e)}
+      return { message: JSON.stringify(e) }
     }
   }
 
@@ -74,9 +77,8 @@ class APIService {
     header: any,
   ): Promise<IBaseResModel<T>> => {
     if (response.status === 401) {
-      const stringModel = `refresh_token=${this._auth.refresh_token.trim()}&token=${
-        this._token
-      }&grant_type=refresh_token`
+      const stringModel = `refresh_token=${this._auth.refresh_token.trim()}&token=${this._token
+        }&grant_type=refresh_token`
 
       if (APIService.refreshPromise == null) {
         APIService.refreshPromise = this.getCredential(stringModel).then(
