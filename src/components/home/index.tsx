@@ -9,8 +9,6 @@ import { useEffect, useMemo, useState } from 'react'
 import Styled from 'styled-components'
 import { GENRE, Playlist } from '../../db'
 import { IHomeProps } from '../../pages'
-import Vimeo from '@u-wave/react-vimeo'
-// import Link from 'next/link'
 
 export const Home = ({ genres, playlist }: IHomeProps) => {
   const router = useRouter()
@@ -33,7 +31,8 @@ export const Home = ({ genres, playlist }: IHomeProps) => {
   }
 
   useEffect(() => {
-    const list = genre == GENRE.All ? playlist : playlist.filter((item) => item.genre === genre)
+
+    const list =  genre == GENRE.All ? playlist :playlist.filter((item) => item.genre.some(item=>item===genre))
     Router.push({
       pathname: router.pathname,
       hash: genre
@@ -66,7 +65,7 @@ export const Home = ({ genres, playlist }: IHomeProps) => {
 
             return (
               <Card className="card" key={`${item.id}${index}`}>
-                <Link href="#">
+                <Link href={`/details?genre=${genre}&id=${item.id}`} >
                   <Box padding={2}>
                     <Grid
                       container
@@ -80,18 +79,17 @@ export const Home = ({ genres, playlist }: IHomeProps) => {
                         <Image width={100} height={100} src={'/image.jpg'} />
                       </Grid>
                       {media.duration}
+                      <Typography>{item.name}</Typography>
+
                     </Grid>
                   </Box>
                 </Link>
               </Card>
             )
           })}
+
         </Grid>
-        {/* <Vimeo
-  video="videos/nature.mp4"
-  autoplay
-/> */}
-        {/* <video  controls src="videos/nature.mp4"></video> */}
+
       </Grid>
     </StyledContainer>
   )
@@ -122,7 +120,7 @@ export const StyledContainer = Styled(Container)`
       }
       .video{
         width:300px;
-        height:200px
+        height:200px;
         margin:auto;
         border:1px dashed yellow;
       }

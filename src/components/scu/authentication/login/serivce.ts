@@ -4,7 +4,7 @@ import { ICredentialReqModel, ICredentialResModel } from '../models'
 
 class LoginService {
   async login(model: ICredentialReqModel): Promise<Partial<ICredentialResModel>> {
-   
+
     const response = await new APIService().getCredential(model)
     return response
   }

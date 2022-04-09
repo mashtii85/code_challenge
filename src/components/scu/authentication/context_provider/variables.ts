@@ -1,6 +1,6 @@
 import { Dispatch } from 'react'
+import { IMessage } from '../../../../config'
 import { ICredentialResModel, ICredentialReqModel } from '../models'
-import { IMessage } from '@config'
 
 export interface IAuthorizeAction<T> {
   type: ActionType
@@ -30,25 +30,4 @@ export enum ActionType {
   SIGN_OUT = 'SIGN_OUT',
   FORGET_PASSWORD = 'FORGET_PASSWORD',
   CLEAR_MESSAGES = 'CLEAR_MESSAGES',
-}
-export enum Posts {
-  VISITOR = 1,
-  INVENTORY_MAN = 2,
-  HUMAN_RESOURCE_MANAGER = 3,
-  CEO = 4,
-  QCManager = 5,
-  SUManager = 6,
-  FinancialManager = 7,
-  Collector = 8,
-  SaleManager = 9,
-  Driver = 10,
-  Responsible = 11,
-  Employee = 12,
-  Distributer = 13,
-  SignOwner = 15,
-  Cashier = 16,
-  InventoryAccountant = 17,
-  InventoryManager = 50,
-  AssetManager = 51,
-  Daroox_Admin = 99,
 }

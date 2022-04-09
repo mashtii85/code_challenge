@@ -3,6 +3,7 @@ export interface ICredentialResModel {
   token_type: string
   expires_in: string
   refresh_token: string
+  userName:string
   grant_type: string
   access_token: string
   message: string

@@ -37,12 +37,12 @@ export const LoginForm = (): React.ReactElement => {
       username: values.username,
       password: values.password,
     }
-    
+
     dispatch({ type: ActionType.GET_TOKEN, payload: credentials })
   }
 
   return (
-    <StyledContainer fluid >
+    <StyledContainer >
       <Grid
         className='border'
         container
@@ -55,8 +55,6 @@ export const LoginForm = (): React.ReactElement => {
             <Box padding={10} >
               <form onSubmit={handleSubmit(onSubmit)}  >
                 <Box justifyContent={'center'} alignItems={'center'} m="auto" display="flex"
-
-                // width={500} height={80}
                 >
                   <TextField
                     fullWidth
@@ -64,11 +62,7 @@ export const LoginForm = (): React.ReactElement => {
                     sx={{
                       margin: 2,
                     }}
-                    // defaultValue={
-                    //   credentials.username && credentials.username.length > 0
-                    //     ? credentials.username
-                    //     : ''
-                    // }
+
                     {...register('username')}
                     error={errors.username && errors.username?.message !== ''}
                     helperText={
@@ -84,7 +78,7 @@ export const LoginForm = (): React.ReactElement => {
                   />
                 </Box>
 
-                 <Box justifyContent={'center'} alignItems={'center'} m="auto" display="flex">
+                <Box justifyContent={'center'} alignItems={'center'} m="auto" display="flex">
                   <TextField
                     fullWidth
                     sx={{

@@ -1,10 +1,10 @@
 import React, { createContext, useEffect } from 'react'
 import useReducerWithSideEffects from 'use-reducer-with-side-effects'
 import { authorizeReducer } from './reducers'
-// import { navigation } from '@config'
+
 
 import { useRouter } from 'next/router'
-// import {} from 'src/i18n'
+
 import {
   ActionType,
   IAuthorizeContextProps,
@@ -13,13 +13,13 @@ import {
 import { isUnprotected } from '../config/unprotected_pages'
 import { Loading } from '../../../common'
 import { navigation } from '../../../../config'
-// import { Loading } from '@common'
+import { AppBar, Button, IconButton, Toolbar, Typography } from '@mui/material'
+
 
 export const authorizeInitState: IAuthorizeState = {
   token: null,
   loading: false,
   currentState: ActionType.UNINITIALIZED,
-  isAdmin: undefined,
   message: [],
 }
 
@@ -39,8 +39,12 @@ function AuthenticateProvider({
   useEffect(() => {
     dispatch({ type: ActionType.UNINITIALIZED })
   }, [])
-  
-  const switchRenderer = (currentState:ActionType) => {
+
+  const handleLogout = () => {
+    dispatch({ type: ActionType.SIGN_OUT })
+  }
+
+  const switchRenderer = (currentState: ActionType) => {
 
     switch (currentState) {
       case ActionType.LOADING:
@@ -55,7 +59,13 @@ function AuthenticateProvider({
           router.replace(routeName)
           return <Loading />
         }
-        return <>{children}</>
+        return <>
+          <AppBar>
+            <Toolbar>
+              <Button color="inherit" onClick={handleLogout} >Logout</Button>
+            </Toolbar>
+          </AppBar>
+          {children}</>
       case ActionType.UNAUTHORIZED:
         if (isUnprotected(router.asPath)) {
           return <>{children}</>
@@ -82,7 +92,7 @@ function AuthenticateProvider({
       }}
     >
       {switchRenderer(state.currentState)}
-     
+
     </Provider>
   )
 }
