@@ -124,7 +124,7 @@ export const StyledContainer = Styled(Container)`
         width:300px;
         height:200px
         margin:auto;
-border:1px dashed yellow;
+        border:1px dashed yellow;
       }
     }
     }
