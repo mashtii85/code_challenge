@@ -1,34 +1,27 @@
 // Next
 import type { NextPage } from 'next'
-//Styles
-import Styled from 'styled-components'
 //UI
 import { Home } from '../components/home'
-import { Container } from '@mui/material'
 
-// db
-import {db, Playlist} from '../db'
+import { IPlaylist } from '../../types'
+import { HomeService } from '../components/home/service'
 
-export const StyledContainer = Styled(Container)`
-  border:1px dashed red;
-  background-color:red;
-`
-export interface IHomeProps{
-  playlist:Playlist[]
-  genres:string[]
+export interface IHomeProps {
+  playlist: IPlaylist[]
+  genres: string[]
 }
 
-const HomePage: NextPage<IHomeProps> = (props:IHomeProps) => {
-  return (
-    <Home {...props} />
-  )
+const HomePage: NextPage<IHomeProps> = (props: IHomeProps) => {
+  return <Home {...props} />
 }
 
-HomePage.getInitialProps=(_):IHomeProps=>{
-  const {playlist,allGenre} = db
+HomePage.getInitialProps = (_): IHomeProps => {
+  const service = new HomeService()
+  const genres = service.getGenres()
+  const playlist = service.getPlaylist()
 
   return {
-    genres:allGenre,
+    genres,
     playlist
   }
 }

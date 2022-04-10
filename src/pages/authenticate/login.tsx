@@ -1,18 +1,10 @@
 import React from 'react'
-import { AuthenticateSkeleton, FormWrapper, LoginForm } from '../../components'
-// import {
-//   AuthenticateSkeleton,
-//   AuthenticateSlider,
-//   FormWrapper,
-//   LoginForm,
-// } from 'src/components/scu'
+import { FormWrapper, LoginForm } from '../../components'
 
 export default function Login(): React.ReactElement {
   return (
-    // <AuthenticateSkeleton>
-      <FormWrapper rightSideDivider={true}>
-        <LoginForm />
-      </FormWrapper>
-    // </AuthenticateSkeleton>
+    <FormWrapper rightSideDivider={true}>
+      <LoginForm />
+    </FormWrapper>
   )
 }

@@ -2,9 +2,19 @@
   Components - Details - Types
 */
 
-import { Playlist } from "../../db"
+import { IPlaylist } from '../../../types'
 
-export interface IDetailsProps{
-  playlist:Playlist[]
-  genres:string[]
+export interface IDetailsProps {
+  genres: string[]
+  playlist: IPlaylist[]
+}
+
+export interface IPrepareListOutput {
+  selectedItem?: IPlaylist
+  list: IPlaylist[]
+}
+
+export interface IPrepareListProps {
+  playlist: IPlaylist[]
+  id: string
 }

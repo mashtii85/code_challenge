@@ -2,133 +2,45 @@
   Components - Home - Index
 */
 
-import { Box, Button, Card, Container, Grid, Link, Paper, Typography } from '@mui/material'
-import Image from 'next/image'
-import Router, { useRouter } from 'next/router'
-import { useEffect, useMemo, useState } from 'react'
-import Styled from 'styled-components'
-import { GENRE, Playlist } from '../../db'
+import { Grid, Paper } from '@mui/material'
+import { useState } from 'react'
 import { IHomeProps } from '../../pages'
+import { VideoCard } from './card'
+import { Genre } from './genre'
+import { useHome } from './hooks/useHome'
+import { StyledContainer } from './styles'
 
 export const Home = ({ genres, playlist }: IHomeProps) => {
-  const router = useRouter()
+  const [genre, setGenre] = useState<string>('')
 
-  const [genre, setGenre] = useState<string>()
-  const [list, setList] = useState<Playlist[]>(playlist)
-
-  useEffect(() => {
-    const index = router.asPath.indexOf('#')
-    if (index !== -1) {
-      const genre = router.asPath.substring(index + 1)
-      setGenre(genre)
-    } else {
-      setGenre(GENRE.All)
-    }
-  }, [])
-
-  const handleGenreChange = (value: string) => {
-    setGenre(value)
-  }
-
-  useEffect(() => {
-
-    const list =  genre == GENRE.All ? playlist :playlist.filter((item) => item.genre.some(item=>item===genre))
-    Router.push({
-      pathname: router.pathname,
-      hash: genre
-    })
-    setList(list)
-  }, [genre])
+  const list = useHome({ genre, playlist, setGenre })
 
   return (
     <StyledContainer>
-      <Grid container spacing={2} className="container" padding={2}>
-        <Box padding={2} className="group">
-          <Grid item alignContent="center" display="flex">
-            {genres.map((genreItem, index) => {
-              return (
-                <Paper className="paper" key={index} elevation={3}>
-                  <Button
-                    variant={genre === genreItem ? 'contained' : 'outlined'}
-                    onClick={() => handleGenreChange(genreItem)}
-                  >
-                    <Typography>{genreItem}</Typography>
-                  </Button>
-                </Paper>
-              )
+      <Paper>
+        <Grid
+          container
+          spacing={2}
+          padding={2}
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Genre genres={genres} selectedGenre={genre} setGenre={setGenre} />
+
+          <Grid
+            className="content"
+            item
+            flexWrap="wrap"
+            display="flex"
+            justifyContent="space-around"
+          >
+            {list.map((item, index) => {
+              return <VideoCard key={`${item.id}${index}`} item={item} />
             })}
           </Grid>
-        </Box>
-        <Grid className="content" item flexWrap="wrap" display="flex" justifyContent="space-around">
-          {list.map((item, index) => {
-            const media = new Audio('videos/nature.mp4')
-
-            return (
-              <Card className="card" key={`${item.id}${index}`}>
-                <Link href={`/details?genre=${genre}&id=${item.id}`} >
-                  <Box padding={2}>
-                    <Grid
-                      container
-                      spacing={3}
-                      direction="column"
-                      display="flex"
-                      className="content"
-                    >
-                      <video id="video_player" src={item.url} className="video" />
-                      <Grid item>
-                        <Image width={100} height={100} src={'/image.jpg'} />
-                      </Grid>
-                      {media.duration}
-                      <Typography>{item.name}</Typography>
-
-                    </Grid>
-                  </Box>
-                </Link>
-              </Card>
-            )
-          })}
-
         </Grid>
-
-      </Grid>
+      </Paper>
     </StyledContainer>
   )
 }
-
-export const StyledContainer = Styled(Container)`
-    border:1px dashed red;
-    height:100vh;
-
-    .group{
-      border:1px solid green;
-      width:100%;
-      border-radius:2px;
-    }
-    .paper{
-      margin-left:10px;
-    }
-    .content{
-      margin-top:2%;
-      border: 1px solid green;
-      .card{
-      border:1px dashed green;
-      margin-bottom:30px;
-      .content{
-      margin:auto;
-      margin-bottom:30px;
-      text-align:center;
-      }
-      .video{
-        width:300px;
-        height:200px;
-        margin:auto;
-        border:1px dashed yellow;
-      }
-    }
-    }
-.border{
-  border:1px dashed red;
-  width:100%;
-}
-
-`
